@@ -42,19 +42,21 @@ def getStats(stats,name):
         numStats.append(num)
     return numStats
 
-def volleyballTracker(stat,num):
+def setStats(stat,num):
     totalStat = {}
     for i in range(0,len(stat)):
         totalStat.update({stat[i]:num[i]})
     return totalStat
 
+def createPlayerBase(names,stats):
+    players = {}
+    for i in range(0,len(names)):
+        numStats = getStats(stats, names[i])
+        players[names[i]] = setStats(stats,numStats)
+    return players
+
 #main
-name = getName()
+names = getName()
 stats = ['kills','blocks','digs']
-players = {}
-for i in range(0,len(name)):
-    numStats = getStats(stats, name[i])
-    if len(stats) != len(numStats):
-        raise lengthError('must have numbers for every stat')
-    players[name[i]] = volleyballTracker(stats,numStats)
+players = createPlayerBase(names,stats)
 print(players)
